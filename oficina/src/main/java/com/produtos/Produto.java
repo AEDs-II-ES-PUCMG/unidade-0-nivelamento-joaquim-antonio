@@ -12,27 +12,32 @@ public abstract class Produto {
     private String descricao;
     protected double precoCusto;
     protected double margemLucro;
+    private int quantidadeEmEstoque; 
 
     public Produto(){}
 
-    protected Produto(String desc, double precoCusto, double margemLucro){
-        init(desc, precoCusto, margemLucro);
+    protected Produto(String desc, double precoCusto, double margemLucro, int quantidadeEmEstoque){
+        init(desc, precoCusto, margemLucro, quantidadeEmEstoque);
     }
 
-    protected Produto(String desc, double precoCusto){
-        init(desc, precoCusto, MARGEM_PADRAO);
+    protected Produto(String desc, double precoCusto, int quantidadeEmEstoque){
+        init(desc, precoCusto, MARGEM_PADRAO, quantidadeEmEstoque);
     }
 
-    private void init(String desc, double precoCusto, double margemLucro){
+    private void init(String desc, double precoCusto, double margemLucro, int quantidadeEmEstoque){
         if(precoCusto < 0)
             throw new IllegalArgumentException("preco negativo");
 
         if(margemLucro < 0)
             throw new IllegalArgumentException("margem negativa");
-
+        
+        if(quantidadeEmEstoque < 0)
+        	throw new IllegalArgumentException("quantidade negativa");
+        	
         this.descricao = desc;
         this.precoCusto = precoCusto;
         this.margemLucro = margemLucro;
+        this.quantidadeEmEstoque = quantidadeEmEstoque;
     }
 
     public double valorDeVenda(){
@@ -81,10 +86,12 @@ public abstract class Produto {
         double precoCusto = Double.parseDouble(atributos[2]);
         double margemDeLucro = Double.parseDouble(atributos[3]);
         if(tipo==1){
-            novoProduto = new ProdutoNaoPerecivel(descricao, precoCusto, margemDeLucro);
+            int qtde = Integer.parseInt(atributos[4]);
+            novoProduto = new ProdutoNaoPerecivel(descricao, precoCusto, margemDeLucro, qtde);
         }else{
             LocalDate dataValidade = LocalDate.parse(atributos[4], formatoData);
-            novoProduto = new ProdutoPerecivel(descricao, precoCusto, margemDeLucro, dataValidade);
+            int qtde = Integer.parseInt(atributos[5]);
+            novoProduto = new ProdutoPerecivel(descricao, precoCusto, margemDeLucro, dataValidade, qtde);
         }
         return novoProduto;
     }
@@ -112,4 +119,12 @@ public abstract class Produto {
     public void setMargemLucro(double margemLucro) {
         this.margemLucro = margemLucro;
     }
+
+	public int getQuantidadeEmEstoque() {
+		return quantidadeEmEstoque;
+	}
+
+	public void setQuantidadeEmEstoque(int quantidadeEmEstoque) {
+		this.quantidadeEmEstoque = quantidadeEmEstoque;
+	}
 }

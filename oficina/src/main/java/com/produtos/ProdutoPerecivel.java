@@ -12,9 +12,9 @@ public class ProdutoPerecivel extends Produto {
     private final int PRAZO_DESCONTO = 7;
     private LocalDate dataDeValidade;
 
-    public ProdutoPerecivel(String desc, double precoCusto, double margemLucro, LocalDate validade){
+    public ProdutoPerecivel(String desc, double precoCusto, double margemLucro, LocalDate validade, int quantidadeEmEstoque){
 
-        super(desc, precoCusto, margemLucro);
+        super(desc, precoCusto, margemLucro, quantidadeEmEstoque);
         if(validade.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Produto vencido nao pode ser cadastrado");
         }

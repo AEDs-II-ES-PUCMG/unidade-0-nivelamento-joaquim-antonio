@@ -124,8 +124,10 @@ public class Comercio {
                     double precoCusto = teclado.nextDouble();
                     System.out.println("Digite a margem de lucro do produto: ");
                     double margemLucro = teclado.nextDouble();
+                    System.out.println("Digite a quantidade de produtos: ");
+                    int qtde = teclado.nextInt();
 
-                    Produto novoProduto = new ProdutoNaoPerecivel(desc, precoCusto, margemLucro);
+                    Produto novoProduto = new ProdutoNaoPerecivel(desc, precoCusto, margemLucro, qtde);
                     produtosCadastrados[quantosProdutos] = novoProduto;
                     quantosProdutos++;
 
@@ -140,11 +142,13 @@ public class Comercio {
                     double precoCusto = teclado.nextDouble();
                     System.out.println("Digite a margem de lucro do produto: ");
                     double margemLucro = teclado.nextDouble();
+                    System.out.println("Digite a quantidade de produtos: ");
+                    int qtde = teclado.nextInt();
                     System.out.println("Digite a data de validade no padrao dd/MM/yyyy: ");
                     teclado.nextLine();
                     String dataValidade = teclado.nextLine();
 
-                    Produto novoProduto = new ProdutoPerecivel(desc, precoCusto, margemLucro, LocalDate.parse(dataValidade, formato));
+                    Produto novoProduto = new ProdutoPerecivel(desc, precoCusto, margemLucro, LocalDate.parse(dataValidade, formato), qtde);
                     produtosCadastrados[quantosProdutos] = novoProduto;
                     quantosProdutos++;
 
@@ -179,7 +183,7 @@ public class Comercio {
 
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in, Charset.forName("ISO-8859-2"));
-        nomeArquivoDados = "oficina/dadosProdutos.csv";
+        nomeArquivoDados = "dadosProdutos.csv";
         produtosCadastrados = lerProdutos(nomeArquivoDados);
         int opcao = -1;
         do{
